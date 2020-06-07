@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block header%}
+    <!-- {% include 'base/header.html' %} tambien se puede incluir un archivo externo -->
+     <h5>REGISTRO DE SOLICITUDES (PERSONAS CON SU MASCOTA)</h5>
+    {% endblock %}
+
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>N° Solicitud</td>
+                <td>Adoptante</td>
+                <td>N° Mascotas</td>
+                <td>Razones</td>
+                <td>Acciones</td>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% if object_list %}
+                {% for solicitud in object_list %}
+                <tr>
+                    <td>{{solicitud.id}}</td>
+                    <td>{{solicitud.persona.nombre}} {{solicitud.persona.apellidos}}</td>
+                    <td>{{solicitud.numero_mascotas}}</td>
+                    <td>{{solicitud.razones}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'solicitud_editar' solicitud.id%}">EDITAR</a>
+                        <a href=""></a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="{% url 'solicitud_borrar' solicitud.id%}">BORRAR</a>
+                        <a href=""></a>
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+            {% else %}
+            <h1>NO HAY REGISTRO DE SOLICITUDES</h1>
+            {% endif %}
+        </tbody>
+
+
+    </table>    
+
+{% endblock %}
